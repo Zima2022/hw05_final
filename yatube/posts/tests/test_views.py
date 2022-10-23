@@ -160,10 +160,9 @@ class PostPagesTests(TestCase):
         )
         for post in self.posts_list:
             self.assertIn(post, response.context['page_obj'])
-        self.assertEqual(
-            self.posts_list[-1].image,
-            response.context['page_obj'][2].image
-        )
+        for post_context in response.context['page_obj']:
+            post = Post.objects.filter(id=post_context.id).first()
+            self.assertEqual(post.image, post_context.image)
 
     def test_group_list_page_show_correct_context(self):
         """Шаблон posts/group_list.html
@@ -182,10 +181,9 @@ class PostPagesTests(TestCase):
         for post in self.posts_list:
             if post.group == self.group:
                 self.assertIn(post, response.context['page_obj'])
-        self.assertEqual(
-            self.posts_list[-1].image,
-            response.context['page_obj'][1].image
-        )
+        for post_context in response.context['page_obj']:
+            post = Post.objects.filter(id=post_context.id).first()
+            self.assertEqual(post.image, post_context.image)
 
     def test_profile_page_show_correct_context(self):
         """Шаблон posts/profile.html
@@ -211,10 +209,9 @@ class PostPagesTests(TestCase):
         for post in self.posts_list:
             if post.author == self.user_author.username:
                 self.assertIn(post, response.context['page_obj'])
-        self.assertEqual(
-            self.posts_list[-1].image,
-            response.context['page_obj'][2].image
-        )
+        for post_context in response.context['page_obj']:
+            post = Post.objects.filter(id=post_context.id).first()
+            self.assertEqual(post.image, post_context.image)
 
     def test_post_detail_page_show_correct_context(self):
         """Шаблон post_detail.html сформирован с правильным контекстом."""
