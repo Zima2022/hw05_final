@@ -9,6 +9,10 @@ class Group(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField()
 
+    class Meta:
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
+
     def __str__(self):
         return self.title
 
@@ -66,13 +70,17 @@ class Comment(models.Model):
         verbose_name='Автор'
     )
     text = models.TextField(
-        'Пишите комментарий в этом поле',
-        help_text='Текст нового комментария'
+        'Текст комментария',
+        help_text='Пишите комментарий в этом поле'
     )
     created = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Создан'
     )
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
 
 class Follow(models.Model):
